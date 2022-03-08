@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 002a2259d67097f4d8a658803475fbe9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - redEnemy: {fileID: 6604860522166403265, guid: c3b77266ea0668e4289e92aa866a25ed, type: 3}
+  - greenEnemy: {fileID: 6604860522166403265, guid: 68c98f9388fded8428091c95025a0164, type: 3}
+  - blueEnemy: {fileID: 6604860522166403265, guid: 84fe2441562ca0e40afcd754e61ad5ba, type: 3}
+  - enemyRoot: {fileID: 8242540515360057349, guid: ceaa0f112c0865a40ae4e9cedd5fb000, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
