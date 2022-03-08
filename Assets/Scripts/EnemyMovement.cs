@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public int numEnemiesAcross = 6;
     public float widthPerEnemy = 2f;
     public float heightPerEnemy = 2f;
     public float secondsPerStep = 0.5f;
-    public float minShootInterval = 1f;
-    public float maxShootInterval = 7f;
     public Transform redEnemy;
     public Transform greenEnemy;
     public Transform blueEnemy;
@@ -17,24 +15,21 @@ public class EnemyManager : MonoBehaviour
     public Transform enemyRoot;
     public ScoreManager scoreManager;
     private Vector3 marchDirection = Vector3.right;
-    private float currentShotInterval;
     private float timeSinceLastStep;
-    private float timeSinceLastShot;
+    
 
     private void Start()
     {
-        float enemyStartHeight = 3f;
+        float enemyStartHeight = 3.45f;
         SpawnEnemyRow(redEnemy, enemyStartHeight);
         SpawnEnemyRow(greenEnemy, enemyStartHeight - heightPerEnemy);
         SpawnEnemyRow(blueEnemy, enemyStartHeight - heightPerEnemy * 2f);
         SpawnEnemyRow(pinkEnemy, enemyStartHeight - heightPerEnemy * 3f);
-        currentShotInterval = Random.Range(minShootInterval, maxShootInterval);
     }
 
     private void Update()
     {
         timeSinceLastStep += Time.deltaTime;
-        timeSinceLastShot += Time.deltaTime;
 
         if (timeSinceLastStep > secondsPerStep)
         {
@@ -46,7 +41,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if (Mathf.Abs(enemyTransform.position.x) > horizontalExtent)
                 {
-                    enemyRoot.position += Vector3.down * heightPerEnemy;
+                    enemyRoot.position += Vector3.down * 0.5f;
                     marchDirection *= -1f;
                     Debug.Log("down");
                     break;
@@ -54,12 +49,6 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        if (timeSinceLastShot > currentShotInterval)
-        {
-            timeSinceLastShot -= currentShotInterval;
-            currentShotInterval = Random.Range(minShootInterval, maxShootInterval);
-        }
-        
     }
 
     void SpawnEnemyRow(Transform enemyPrefab, float height)
@@ -75,6 +64,7 @@ public class EnemyManager : MonoBehaviour
 
     void OnEnemyDied(Enemy enemy)
     {
+        secondsPerStep -= 0.035f;
         enemy.OnEnemyDestroyed -= OnEnemyDied;
         scoreManager.AddPoints(enemy.pointValue);
     }
