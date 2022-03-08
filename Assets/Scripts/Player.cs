@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.Space))
       {
         GameObject shot = Instantiate(bullet, shottingOffset.position, Quaternion.identity);
-        Debug.Log("Bang!");
+        // Debug.Log("Bang!");
 
-        Destroy(shot, 3f);
+        // Destroy(shot, 3f);
 
       }
       

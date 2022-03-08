@@ -13,8 +13,9 @@ public class EnemyManager : MonoBehaviour
     public Transform redEnemy;
     public Transform greenEnemy;
     public Transform blueEnemy;
+    public Transform pinkEnemy;
     public Transform enemyRoot;
-    
+    public ScoreManager scoreManager;
     private Vector3 marchDirection = Vector3.right;
     private float currentShotInterval;
     private float timeSinceLastStep;
@@ -22,11 +23,11 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        float windowHeight = Camera.main.orthographicSize * 2;
-        float enemyStartHeight = windowHeight - heightPerEnemy * 2.5f;
+        float enemyStartHeight = 3f;
         SpawnEnemyRow(redEnemy, enemyStartHeight);
         SpawnEnemyRow(greenEnemy, enemyStartHeight - heightPerEnemy);
-        SpawnEnemyRow(blueEnemy, enemyStartHeight - heightPerEnemy);
+        SpawnEnemyRow(blueEnemy, enemyStartHeight - heightPerEnemy * 2f);
+        SpawnEnemyRow(pinkEnemy, enemyStartHeight - heightPerEnemy * 3f);
         currentShotInterval = Random.Range(minShootInterval, maxShootInterval);
     }
 
@@ -65,8 +66,8 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < numEnemiesAcross; i++)
         {
-            float xPos = -(numEnemiesAcross * widthPerEnemy) / 2 + 1 * widthPerEnemy + widthPerEnemy / 2;
-            Transform enemy = Instantiate(enemyPrefab, new Vector3(xPos, height, 0f), Quaternion.identity) as Transform;
+            float xPos = -(numEnemiesAcross * widthPerEnemy) / 2 + i * widthPerEnemy + widthPerEnemy / 2;
+            var enemy = Instantiate(enemyPrefab, new Vector3(xPos, height, 0f), Quaternion.identity);
             enemy.SetParent(enemyRoot);
             enemy.GetComponent<Enemy>().OnEnemyDestroyed += OnEnemyDied;
         }
@@ -75,6 +76,6 @@ public class EnemyManager : MonoBehaviour
     void OnEnemyDied(Enemy enemy)
     {
         enemy.OnEnemyDestroyed -= OnEnemyDied;
-        // ScoreManager.AddPoints(enemy.pointValue);
+        scoreManager.AddPoints(enemy.pointValue);
     }
 }
