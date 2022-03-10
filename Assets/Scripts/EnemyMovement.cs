@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     public Transform pinkEnemy;
     public Transform enemyRoot;
     public ScoreManager scoreManager;
-    private Vector3 marchDirection = Vector3.right;
+    private Vector3 moveDir = Vector3.right;
     private float timeSinceLastStep;
     
 
@@ -34,7 +34,7 @@ public class EnemyMovement : MonoBehaviour
         if (timeSinceLastStep > secondsPerStep)
         {
             timeSinceLastStep -= secondsPerStep;
-            enemyRoot.position += marchDirection * widthPerEnemy * 0.5f;
+            enemyRoot.position += moveDir * widthPerEnemy * 0.5f;
 
             float horizontalExtent = Camera.main.orthographicSize * Camera.main.aspect - widthPerEnemy;
             foreach (Transform enemyTransform in enemyRoot)
@@ -42,8 +42,7 @@ public class EnemyMovement : MonoBehaviour
                 if (Mathf.Abs(enemyTransform.position.x) > horizontalExtent)
                 {
                     enemyRoot.position += Vector3.down * 0.5f;
-                    marchDirection *= -1f;
-                    Debug.Log("down");
+                    moveDir *= -1f;
                     break;
                 }
             }
