@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private Animator enemyAnimator;
     private static readonly int Died = Animator.StringToHash("Died");
     private Collision2D bulletCollision2D;
+    private static readonly int Shoot = Animator.StringToHash("Shoot");
 
     // Start is called before the first frame update
     private void Start()
@@ -50,7 +51,8 @@ public class Enemy : MonoBehaviour
         {
             if (FrontRow())
             {
-               Fire();
+                enemyAnimator.SetTrigger(Shoot);
+                Fire();
             }
             timeSinceLastShot -= currentShotInterval;
             currentShotInterval = Random.Range(minShootInterval, maxShootInterval); 

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Animator playerAnimator;
     public Transform shottingOffset;
     private static readonly int Shoot = Animator.StringToHash("Shoot");
+    private static readonly int Died = Animator.StringToHash("Died");
 
     private void Start()
     {
@@ -40,6 +41,13 @@ public class Player : MonoBehaviour
     {
         Debug.Log("you died");
         Destroy(col.gameObject);
+        StartCoroutine(Explode());
+    }
+
+    IEnumerator Explode()
+    {
+        playerAnimator.SetTrigger(Died);
+        yield return new WaitForSeconds(1);
         Destroy(gameObject);
         SceneManager.LoadScene("Credits");
     }
