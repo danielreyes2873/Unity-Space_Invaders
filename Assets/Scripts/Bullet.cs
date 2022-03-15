@@ -31,8 +31,8 @@ public class Bullet : MonoBehaviour
       enemyShot.velocity = Vector2.down * speed; 
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-      Destroy(col.gameObject);
-    }
+    // private void OnCollisionEnter2D(Collision2D col)
+    // {
+    //   Destroy(col.gameObject);
+    // }
 }

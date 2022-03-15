@@ -6,32 +6,41 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-  public GameObject bullet;
-  public Bullet bulletSc;
-  public float speed = 8f;
+    public GameObject bullet;
+    public Bullet bulletSc;
+    public float speed = 8f;
+  
+    private Animator playerAnimator;
+    public Transform shottingOffset;
+    private static readonly int Shoot = Animator.StringToHash("Shoot");
 
-  public Transform shottingOffset;
+    private void Start()
+    {
+        playerAnimator = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Space))
-      {
-        GameObject shot = Instantiate(bullet, shottingOffset.position, Quaternion.identity);
-        bulletSc.PlayerFire(shot);
-        // Debug.Log("Bang!");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerAnimator.SetTrigger(Shoot);
+            GameObject shot = Instantiate(bullet, shottingOffset.position, Quaternion.identity);
+            bulletSc.PlayerFire(shot);
+            // Debug.Log("Bang!");
 
-        // Destroy(shot, 3f);
+            // Destroy(shot, 3f);
 
-      }
+        }
       
-      transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0f, 0f);
+        transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0f, 0f);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-      Debug.Log("you died");
-      Destroy(col.gameObject);
-      Destroy(gameObject);
-      SceneManager.LoadScene("Credits");
+        Debug.Log("you died");
+        Destroy(col.gameObject);
+        Destroy(gameObject);
+        SceneManager.LoadScene("Credits");
     }
 }

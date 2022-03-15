@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     public float maxShootInterval = 16f;
     private float timeSinceLastShot;
     private float currentShotInterval;
+    private Animator enemyAnimator;
+    private static readonly int Died = Animator.StringToHash("Died");
+    private Collision2D bulletCollision2D;
 
     // Start is called before the first frame update
     private void Start()
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
         currentShotInterval = Random.Range(minShootInterval, maxShootInterval);
+        enemyAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -57,8 +61,8 @@ public class Enemy : MonoBehaviour
     {
       // Debug.Log(collision.gameObject.name);
       OnEnemyDestroyed?.Invoke(this);
-      Destroy(this.gameObject);
       Destroy(collision.gameObject);
+      StartCoroutine(Explode());
     }
 
     public void Fire()
@@ -80,5 +84,12 @@ public class Enemy : MonoBehaviour
         // Debug.Log("true");
         return true;
         
+    }
+
+    IEnumerator Explode()
+    {
+        enemyAnimator.SetTrigger(Died);
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

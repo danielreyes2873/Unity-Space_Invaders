@@ -29,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
         SpawnEnemyRow(blueEnemy, enemyStartHeight - heightPerEnemy * 2f);
         SpawnEnemyRow(pinkEnemy, enemyStartHeight - heightPerEnemy * 3f);
         numEnemies = 4 * numEnemiesAcross;
+        
     }
 
     private void Update()
