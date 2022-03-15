@@ -941,6 +941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7865564155119383351, guid: 84fe2441562ca0e40afcd754e61ad5ba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4cf38d345b4b1e9498a093f87318a82e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84fe2441562ca0e40afcd754e61ad5ba, type: 3}
 --- !u!1 &555759941
