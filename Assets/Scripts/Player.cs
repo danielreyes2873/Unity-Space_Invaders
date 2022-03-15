@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -31,5 +32,6 @@ public class Player : MonoBehaviour
       Debug.Log("you died");
       Destroy(col.gameObject);
       Destroy(gameObject);
+      SceneManager.LoadScene("Credits");
     }
 }

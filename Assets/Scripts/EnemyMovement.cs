@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class EnemyMovement : MonoBehaviour
     public ScoreManager scoreManager;
     private Vector3 moveDir = Vector3.right;
     private float timeSinceLastStep;
+    private int numEnemies;
+    private int numDead = 0;
     
 
     private void Start()
@@ -25,6 +28,7 @@ public class EnemyMovement : MonoBehaviour
         SpawnEnemyRow(greenEnemy, enemyStartHeight - heightPerEnemy);
         SpawnEnemyRow(blueEnemy, enemyStartHeight - heightPerEnemy * 2f);
         SpawnEnemyRow(pinkEnemy, enemyStartHeight - heightPerEnemy * 3f);
+        numEnemies = 4 * numEnemiesAcross;
     }
 
     private void Update()
@@ -66,5 +70,11 @@ public class EnemyMovement : MonoBehaviour
         secondsPerStep -= 0.035f;
         enemy.OnEnemyDestroyed -= OnEnemyDied;
         scoreManager.AddPoints(enemy.pointValue);
+        numDead++;
+        if (numDead == numEnemies)
+        {
+            Debug.Log("You Win!");
+            SceneManager.LoadScene("Credits");
+        }
     }
 }
